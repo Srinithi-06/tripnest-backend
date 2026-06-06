@@ -1,12 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
+require("dotenv").config();
 
-const connectDB = require("./Utils/db");
+const connectDB =
+require("./Utils/db");
 
-const userRoutes = require("./Routers/UserRoutes");
+const userRoutes =
+require("./Routers/UserRoutes");
 
-dotenv.config();
+const packageRoutes =
+require("./Routers/PackageRoutes");
+
+const bookingRoutes =
+require("./Routers/BookingRoutes");
+
 
 const app = express();
 
@@ -16,14 +23,22 @@ app.use(cors());
 
 app.use(express.json());
 
-app.use("/api/users", userRoutes);
+app.use(
+  "/api/users",
+  userRoutes
+);
 
-app.get("/", (req, res) => {
-  res.send("TripNest Backend Running");
-});
+app.use(
+  "/api/packages",
+  packageRoutes
+);
 
+app.use(
+  "/api/bookings",
+  bookingRoutes
+);
 const PORT =
-  process.env.PORT || 5000;
+process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(
