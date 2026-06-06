@@ -1,11 +1,7 @@
-const User = require("../Models/UserModels");
+const User = require("../Models/UserModel");
 
 const bcrypt = require("bcryptjs");
-
 const jwt = require("jsonwebtoken");
-
-
-// SIGNUP
 
 const signupUser = async (req, res) => {
   try {
@@ -31,7 +27,6 @@ const signupUser = async (req, res) => {
     });
 
     res.status(201).json({
-      success: true,
       message: "Signup Successful",
       user,
     });
@@ -41,9 +36,6 @@ const signupUser = async (req, res) => {
     });
   }
 };
-
-
-// LOGIN
 
 const loginUser = async (req, res) => {
   try {
@@ -55,7 +47,8 @@ const loginUser = async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        message: "User Not Found",
+        message:
+          "Invalid Email or Password",
       });
     }
 
@@ -67,7 +60,8 @@ const loginUser = async (req, res) => {
 
     if (!isMatch) {
       return res.status(400).json({
-        message: "Invalid Password",
+        message:
+          "Invalid Email or Password",
       });
     }
 
@@ -82,7 +76,6 @@ const loginUser = async (req, res) => {
     );
 
     res.status(200).json({
-      success: true,
       token,
       user,
     });

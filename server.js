@@ -7,7 +7,12 @@ const connectDB = require("./Utils/db");
 const userRoutes = require("./Routers/UserRoutes");
 const packageRoutes = require("./Routers/PackageRoutes");
 const bookingRoutes = require("./Routers/BookingRoutes");
-
+const customTripRoutes = require(
+  "./Routers/CustomTripRoutes"
+);
+const wishlistRoutes = require(
+  "./Routers/WishlistRoutes"
+);
 dotenv.config();
 
 const app = express();
@@ -20,13 +25,21 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/bookings", bookingRoutes);
-
+app.use(
+  "/api/wishlist",
+  wishlistRoutes
+);
+app.use(
+  "/api/customtrips",
+  customTripRoutes
+);
 app.get("/", (req, res) => {
   res.send("TripNest Backend Running");
 });
 app.get("/test", (req, res) => {
   res.send("Test Route Working");
 });
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

@@ -9,18 +9,12 @@ const {
   rejectBooking,
 } = require("../Controllers/BookingController");
 
-router.post("/add", createBooking);
+router.post("/create", createBooking);
 
 router.get("/", getBookings);
 
-router.put(
-  "/approve/:id",
-  approveBooking
-);
+router.put("/approve/:id", approveBooking);
 
-router.put(
-  "/reject/:id",
-  rejectBooking
-);
+router.put("/reject/:id", rejectBooking);
 
 module.exports = router;

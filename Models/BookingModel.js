@@ -1,33 +1,18 @@
 const mongoose = require("mongoose");
 
-const bookingSchema = new mongoose.Schema(
+const BookingSchema = new mongoose.Schema(
   {
-    packageName: {
-      type: String,
-      required: true,
-    },
+    packageName: String,
 
-    packageImage: {
-      type: String,
-    },
+    packageImage: String,
 
-    duration: {
-      type: String,
-    },
+    duration: String,
 
-    price: {
-      type: String,
-    },
+    price: String,
 
-    userName: {
-      type: String,
-      required: true,
-    },
+    userName: String,
 
-    userEmail: {
-      type: String,
-      required: true,
-    },
+    userEmail: String,
 
     status: {
       type: String,
@@ -56,5 +41,5 @@ const bookingSchema = new mongoose.Schema(
 
 module.exports = mongoose.model(
   "Booking",
-  bookingSchema
+  BookingSchema
 );
