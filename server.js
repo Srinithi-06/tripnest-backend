@@ -1,47 +1,34 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const dotenv = require("dotenv");
 
-const connectDB =
-require("./Utils/db");
+const connectDB = require("./Utils/db");
 
-const userRoutes =
-require("./Routers/UserRoutes");
+const userRoutes = require("./Routers/UserRoutes");
+const packageRoutes = require("./Routers/PackageRoutes");
+const bookingRoutes = require("./Routers/BookingRoutes");
 
-const packageRoutes =
-require("./Routers/PackageRoutes");
-
-const bookingRoutes =
-require("./Routers/BookingRoutes");
-
+dotenv.config();
 
 const app = express();
 
 connectDB();
 
 app.use(cors());
-
 app.use(express.json());
 
-app.use(
-  "/api/users",
-  userRoutes
-);
+app.use("/api/users", userRoutes);
+app.use("/api/packages", packageRoutes);
+app.use("/api/bookings", bookingRoutes);
 
-app.use(
-  "/api/packages",
-  packageRoutes
-);
-
-app.use(
-  "/api/bookings",
-  bookingRoutes
-);
-const PORT =
-process.env.PORT || 5000;
+app.get("/", (req, res) => {
+  res.send("TripNest Backend Running");
+});
+app.get("/test", (req, res) => {
+  res.send("Test Route Working");
+});
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(
-    `Server Running On Port ${PORT}`
-  );
+  console.log(`Server Running On Port ${PORT}`);
 });
