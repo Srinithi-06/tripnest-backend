@@ -64,6 +64,50 @@ const loginUser = async (req, res) => {
           "Invalid Email or Password",
       });
     }
+    
+    // GET ALL USERS
+
+const getUsers = async (
+  req,
+  res
+) => {
+  try {
+    const users =
+      await User.find().select(
+        "-password"
+      );
+
+    res.status(200).json(
+      users
+    );
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// DELETE USER
+
+const deleteUser = async (
+  req,
+  res
+) => {
+  try {
+    await User.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.status(200).json({
+      message:
+        "User Deleted Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
     const token = jwt.sign(
       {
@@ -85,8 +129,49 @@ const loginUser = async (req, res) => {
     });
   }
 };
+const getUsers = async (
+  req,
+  res
+) => {
+  try {
+    const users =
+      await User.find().select(
+        "-password"
+      );
+
+    res.status(200).json(
+      users
+    );
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+const deleteUser = async (
+  req,
+  res
+) => {
+  try {
+    await User.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.status(200).json({
+      message:
+        "User Deleted Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 module.exports = {
   signupUser,
   loginUser,
+  getUsers,
+  deleteUser,
 };

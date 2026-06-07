@@ -10,6 +10,7 @@ const {
 } = require("../Controllers/BookingController");
 
 router.post("/create", createBooking);
+router.post("/", createBooking);
 
 router.get("/", getBookings);
 

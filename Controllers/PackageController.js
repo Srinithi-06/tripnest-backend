@@ -1,7 +1,6 @@
 const Package = require("../Models/PackageModel");
 
-
-// Add Package
+// ADD PACKAGE
 
 const addPackage = async (req, res) => {
   try {
@@ -20,8 +19,7 @@ const addPackage = async (req, res) => {
   }
 };
 
-
-// Get All Packages
+// GET ALL PACKAGES
 
 const getPackages = async (
   req,
@@ -39,8 +37,28 @@ const getPackages = async (
   }
 };
 
+// GET PACKAGES BY CATEGORY
 
-// Update Package
+const getPackagesByCategory =
+  async (req, res) => {
+    try {
+      const packages =
+        await Package.find({
+          category:
+            req.params.category,
+        });
+
+      res
+        .status(200)
+        .json(packages);
+    } catch (error) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+
+// UPDATE PACKAGE
 
 const updatePackage = async (
   req,
@@ -52,7 +70,8 @@ const updatePackage = async (
         req.params.id,
         req.body,
         {
-          new: true,
+          returnDocument:
+            "after",
         }
       );
 
@@ -66,8 +85,7 @@ const updatePackage = async (
   }
 };
 
-
-// Delete Package
+// DELETE PACKAGE
 
 const deletePackage = async (
   req,
@@ -88,29 +106,11 @@ const deletePackage = async (
     });
   }
 };
-const getPackagesByCategory = async (
-  req,
-  res
-) => {
-  try {
-    const packages =
-      await Package.find({
-        category:
-          req.params.category,
-      });
-
-    res.status(200).json(packages);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
 
 module.exports = {
   addPackage,
   getPackages,
-  updatePackage,
   getPackagesByCategory,
+  updatePackage,
   deletePackage,
 };
