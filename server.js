@@ -10,6 +10,8 @@ const bookingRoutes = require("./Routers/BookingRoutes");
 const customTripRoutes = require("./Routers/CustomTripRoutes");
 const wishlistRoutes = require("./Routers/WishlistRoutes");
 const adminRoutes =require("./Routers/AdminRoutes");
+const dashboardRoutes =
+  require("./Routers/DashboardRoutes");
 
 dotenv.config();
 
@@ -26,6 +28,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/customtrips", customTripRoutes);
 app.use("/api/admin",adminRoutes);
+app.use(  "/api/dashboard",dashboardRoutes);
 
 
 app.get("/", (req, res) => {
