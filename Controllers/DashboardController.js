@@ -5,17 +5,10 @@ const CustomTrip = require("../Models/CustomTripModel");
 
 const getDashboardStats = async (req, res) => {
   try {
-    const totalUsers =
-      await User.countDocuments();
-
-    const totalPackages =
-      await Package.countDocuments();
-
-    const totalBookings =
-      await Booking.countDocuments();
-
-    const totalCustomTrips =
-      await CustomTrip.countDocuments();
+    const totalUsers = await User.countDocuments();
+    const totalPackages = await Package.countDocuments();
+    const totalBookings = await Booking.countDocuments();
+    const totalCustomTrips = await CustomTrip.countDocuments();
 
     const approvedBookings =
       await Booking.countDocuments({
@@ -32,7 +25,7 @@ const getDashboardStats = async (req, res) => {
         status: "Pending",
       });
 
-    res.status(200).json({
+    res.json({
       totalUsers,
       totalPackages,
       totalBookings,

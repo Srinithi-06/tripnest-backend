@@ -60,63 +60,14 @@ const loginUser = async (req, res) => {
 
     if (!isMatch) {
       return res.status(400).json({
-        message:
-          "Invalid Email or Password",
+        message: "Invalid Email or Password",
       });
     }
-    
-    // GET ALL USERS
-
-const getUsers = async (
-  req,
-  res
-) => {
-  try {
-    const users =
-      await User.find().select(
-        "-password"
-      );
-
-    res.status(200).json(
-      users
-    );
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
-
-// DELETE USER
-
-const deleteUser = async (
-  req,
-  res
-) => {
-  try {
-    await User.findByIdAndDelete(
-      req.params.id
-    );
-
-    res.status(200).json({
-      message:
-        "User Deleted Successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
 
     const token = jwt.sign(
-      {
-        id: user._id,
-      },
+      { id: user._id },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "7d",
-      }
+      { expiresIn: "7d" }
     );
 
     res.status(200).json({
@@ -168,10 +119,46 @@ const deleteUser = async (
     });
   }
 };
+const resetPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
 
+    const user = await User.findOne({
+      email,
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "Email not found",
+      });
+    }
+
+    const hashedPassword =
+      await bcrypt.hash(
+        newPassword,
+        10
+      );
+
+    user.password =
+      hashedPassword;
+
+    await user.save();
+
+    res.status(200).json({
+      message:
+        "Password Updated Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message:
+        error.message,
+    });
+  }
+};
 module.exports = {
   signupUser,
   loginUser,
   getUsers,
   deleteUser,
+  resetPassword,
 };
