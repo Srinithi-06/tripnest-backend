@@ -7,15 +7,37 @@ const {
   getBookings,
   approveBooking,
   rejectBooking,
+  deleteBooking,
 } = require("../Controllers/BookingController");
 
-router.post("/create", createBooking);
-router.post("/", createBooking);
+router.post(
+  "/create",
+  createBooking
+);
 
-router.get("/", getBookings);
+router.post(
+  "/",
+  createBooking
+);
 
-router.put("/approve/:id", approveBooking);
+router.get(
+  "/",
+  getBookings
+);
 
-router.put("/reject/:id", rejectBooking);
+router.put(
+  "/approve/:id",
+  approveBooking
+);
+
+router.put(
+  "/reject/:id",
+  rejectBooking
+);
+
+router.delete(
+  "/:id",
+  deleteBooking
+);
 
 module.exports = router;

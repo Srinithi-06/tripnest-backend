@@ -38,7 +38,7 @@ const approveBooking = async (req, res) => {
           reason: "",
         },
         {
-          returnDocument: "after",
+          new: true,
         }
       );
 
@@ -68,7 +68,7 @@ const rejectBooking = async (req, res) => {
           reason,
         },
         {
-          returnDocument: "after",
+          new: true,
         }
       );
 
@@ -86,9 +86,34 @@ const rejectBooking = async (req, res) => {
   }
 };
 
+const deleteBooking = async (req, res) => {
+  try {
+    const booking =
+      await Booking.findByIdAndDelete(
+        req.params.id
+      );
+
+    if (!booking) {
+      return res.status(404).json({
+        message: "Booking not found",
+      });
+    }
+
+    res.status(200).json({
+      message:
+        "Booking Cancelled Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createBooking,
   getBookings,
   approveBooking,
   rejectBooking,
+  deleteBooking,
 };
