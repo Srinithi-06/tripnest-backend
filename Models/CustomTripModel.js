@@ -26,7 +26,12 @@ const CustomTripSchema = new mongoose.Schema(
       type: String,
     },
 
-    userName: {
+     firstName: {
+      type: String,
+      required: true,
+    },
+
+    lastName: {
       type: String,
       required: true,
     },
